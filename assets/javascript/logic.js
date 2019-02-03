@@ -101,6 +101,13 @@ $(document).ready(function () {
     database.ref(choicePath).on("value", function (snapshot) {
         let playerOneChoice = (snapshot.child(choicePath + "/playerOneChoice/").val());
         let playerTwoChoice = (snapshot.child(choicePath + "/playerTwoChoice/").val());
+        if (playerNumberOneOrTwo === "one" && playerTwoChoice != null) {
+            $("#other-player-status").html("The other player has made a choice");
+        };
+        if (playerNumberOneOrTwo === "two" && playerOneChoice != null) {
+            $("#other-player-status").html("The other player has made a choice");
+        };
+
         if (playerOneChoice != null && playerTwoChoice != null) {
             database.ref(choicePath).set({
                 playerOneChoice: null,
@@ -142,18 +149,16 @@ $(document).ready(function () {
         theNumberOnline = connectionsSnapshot.numChildren();
         console.log("number online: " + connectionsSnapshot.numChildren());
         database.ref().child("connections").once("value", function (snapshot) {
-            snapshot.forEach(function (child) {
-                console.log("connected ref: " + child.key + ": " + child.val());
-            });
+            // snapshot.forEach(function (child) {
+            //     console.log("connected ref: " + child.key + ": " + child.val());
+            // });
         });
         if (playerNumberOneOrTwo !== "one") {
             if (theNumberOnline === 1) {
                 setPlayerNumber(1);
-                console.log("connectionsRef 1");
             };
             if (theNumberOnline === 2) {
                 setPlayerNumber(2);
-                console.log("connectionsRef 2");
             };
         };
         if (theNumberOnline > 2 && playerNumberOneOrTwo !== "zero") {
@@ -170,7 +175,6 @@ $(document).ready(function () {
         };
         if (thePlayerNumber === 1) {
             playerNumberOneOrTwo = "one";
-            console.log("you are player one");
             localStorage.playerNumber = "one";
             database.ref(choicePath).set({ //wipe out any partial games
                 playerOneChoice: null,
@@ -179,7 +183,6 @@ $(document).ready(function () {
         };
         if (thePlayerNumber === 2) {
             playerNumberOneOrTwo = "two";
-            console.log("you are player two");
             localStorage.playerNumber = "two";
         };
     };
@@ -385,5 +388,5 @@ $(document).ready(function () {
         }, 500);
     };
 
-    console.log("v1.4");
+    console.log("v1.5");
 });
