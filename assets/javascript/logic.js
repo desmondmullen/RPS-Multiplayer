@@ -364,11 +364,10 @@ $(document).ready(function () {
                 alert(theString + "\nYou lost.");
             };
         };
-        alert("declare winner: " + playerOneChoice + ", " + playerTwoChoice);
         setTimeout(function () {
             $("input[name='rock-paper-scissors']").attr('disabled', false);
         }, 500);
     };
 
-    console.log("v1.3751");
+    console.log("v1.3752");
 });
