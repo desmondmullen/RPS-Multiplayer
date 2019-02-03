@@ -182,6 +182,15 @@ $(document).ready(function () {
                 playerOneChoice: null,
                 playerTwoChoice: null,
             });
+            database.ref(messagesPath).set({
+                dateTime: null,
+                userName: null,
+                message: null,
+                currentLat: null,
+                currentLong: null,
+                currentGeolocation: null
+            });
+
         };
         if (thePlayerNumber === 2) {
             playerNumberOneOrTwo = "two";
@@ -447,7 +456,12 @@ $(document).ready(function () {
             $("#other-player-status").removeClass();
             $("#other-player-status").addClass("made-choice");
         }
+        if (status === "queued") {
+            $("#other-player-status").html("<em>waiting in queue for next opening</em>");
+            $("#other-player-status").removeClass();
+            $("#other-player-status").addClass("queued");
+        }
     };
 
-    console.log("v1.577");
+    console.log("v1.5771");
 });
