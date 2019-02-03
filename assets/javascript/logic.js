@@ -385,5 +385,5 @@ $(document).ready(function () {
         }, 500);
     };
 
-    console.log("v1.3755");
+    console.log("v1.4");
 });
