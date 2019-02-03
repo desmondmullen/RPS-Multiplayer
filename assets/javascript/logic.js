@@ -414,5 +414,5 @@ $(document).ready(function () {
         }, 500);
     };
 
-    console.log("v1.52");
+    console.log("v1.53");
 });
