@@ -1,8 +1,5 @@
-//not logged in: auto-disconnect after play if more than two in connections (not connectsionref)(?)
-//logged in - same thing, but you have your own instance so unless you sent the link many places
-//you probably won't have more than two connections.
-
 $(document).ready(function () {
+    //#region - references and variables
     var config = {
         apiKey: "AIzaSyCguBj_V-Q-Y-adGj7Gk8kwazSxVO3bf3c",
         authDomain: "dsm-rps-multiplayer.firebaseapp.com",
@@ -21,16 +18,15 @@ $(document).ready(function () {
     var theChoice;
     var theString;
     var playerNumberOneOrTwo = "zero";
-    var firebasePlayerOne;
-    var firebasePlayerTwo;
-    var thePlayerID;
     var otherPlayerMapShown = false;
     var theNumberOnline;
     var theLastMessage;
     var geolocationStatusField = $("#geolocation-status");
     var map;
     var mapOtherPlayer;
+    //#endregion
 
+    //#region - buttons
     $(".add-entry").on("click", function (event) {
         event.preventDefault();
         doAddEntry();
@@ -48,29 +44,48 @@ $(document).ready(function () {
         emptyInputFields();
     });
 
-    function doAddEntry(automatic) {
-        let todaysDate = new Date().toLocaleDateString("en-US");
-        let currentTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-        if (automatic != "connected" && automatic != "disconnected") {
-            var entryMessage = $("#input-message").val().trim() + "<br>";
+    $(".radio-button").click(function () {
+        theChoice = $("input[name='rock-paper-scissors']:checked").val();
+        let imageUrl = "assets/images/" + theChoice + ".png";
+        $("#icon-display-left").css('background-image', 'url(\'' + imageUrl + '\'');
+    });
+
+    $("#commit").click(function (event) {
+        console.log("commit: " + theChoice + " as player " + playerNumberOneOrTwo);
+        if (playerNumberOneOrTwo === "one") {
+            database.ref(choicePath).update({
+                playerOneChoice: theChoice,
+            });
         } else {
-            if (automatic == "connected") {
-                var entryMessage = "[connected]<br>";
-            } else {
-                var entryMessage = "[disconnected]<br>";
-            };
+            database.ref(choicePath).update({
+                playerTwoChoice: theChoice,
+            });
         };
-        database.ref(messagesPath).set({
-            dateTime: todaysDate + " " + currentTime,
-            userName: userName,
-            message: entryMessage,
-            currentLat: userLatitude,
-            currentLong: userLongitude,
-            currentGeolocation: "lat: " + userLatitude +
-                ", lng: " + userLongitude
+        $("input[name='rock-paper-scissors']").attr('disabled', true);
+    });
+    //#endregion
+
+    //#region - database references
+    function initializeDatabaseReferences() {
+        firebase.auth().onAuthStateChanged(function (user) {
+            if (user) {
+                userID = user.uid;
+                let shortUserID = Math.floor(Math.random() * 1000 + 1000);
+                userName = prompt("Please enter a name to use for sending messages. If you don't choose one, we'll call you by this random number:", shortUserID);
+                if (userName == null || userName.trim() == "") {
+                    userName = shortUserID;
+                };
+                messagesPath = "messages";
+                choicePath = "choice";
+                getLocation();
+                setTimeout(function () {
+                    doAddEntry("connected");
+                }, 2000);
+            };
         });
-        $("#input-message").val("");
-    };
+    }
+
+    initializeDatabaseReferences();
 
     database.ref(messagesPath).on("value", function (snapshot) {
         let theMessageDateTime = snapshot.child(messagesPath + "/dateTime/").val();
@@ -119,6 +134,32 @@ $(document).ready(function () {
     }, function (errorObject) {
         console.log("entries-error: " + errorObject.code);
     });
+    //#endregion
+
+    //#region - miscellaneous functions
+    function doAddEntry(automatic) {
+        let todaysDate = new Date().toLocaleDateString("en-US");
+        let currentTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        if (automatic != "connected" && automatic != "disconnected") {
+            var entryMessage = $("#input-message").val().trim() + "<br>";
+        } else {
+            if (automatic == "connected") {
+                var entryMessage = "[connected]<br>";
+            } else {
+                var entryMessage = "[disconnected]<br>";
+            };
+        };
+        database.ref(messagesPath).set({
+            dateTime: todaysDate + " " + currentTime,
+            userName: userName,
+            message: entryMessage,
+            currentLat: userLatitude,
+            currentLong: userLongitude,
+            currentGeolocation: "lat: " + userLatitude +
+                ", lng: " + userLongitude
+        });
+        $("#input-message").val("");
+    };
 
     function emptyInputFields() {
         console.log("empty input fields");
@@ -133,6 +174,7 @@ $(document).ready(function () {
         userLatLong;
         playerNumberOneOrTwo = "zero";
     };
+    //#endregion
 
     //#region - connections
     var connectionsRef = database.ref("/connections");
@@ -238,27 +280,6 @@ $(document).ready(function () {
     }
     //#endregion
 
-    function initializeDatabaseReferences() {
-        firebase.auth().onAuthStateChanged(function (user) {
-            if (user) {
-                userID = user.uid;
-                let shortUserID = Math.floor(Math.random() * 1000 + 1000);
-                userName = prompt("Please enter a name to use for sending messages. If you don't choose one, we'll call you by this random number:", shortUserID);
-                if (userName == null || userName.trim() == "") {
-                    userName = shortUserID;
-                };
-                messagesPath = "messages";
-                choicePath = "choice";
-                getLocation();
-                setTimeout(function () {
-                    doAddEntry("connected");
-                }, 2000);
-            };
-        });
-    }
-
-    initializeDatabaseReferences();
-
     //#region - geolocation
     var userLatitude;
     var userLongitude;
@@ -275,7 +296,7 @@ $(document).ready(function () {
     }
 
     getLocation();
-    setInterval(function () { getLocation(); }, 300000);
+    // setInterval(function () { getLocation(); }, 300000); //<--- useful for mobile
 
     function showPosition(position) {
         userLatitude = parseFloat(position.coords.latitude);
@@ -312,7 +333,6 @@ $(document).ready(function () {
             }, 500);
         };
     };
-    //#endregion
 
     function placeMarker(theLatLong, title) {
         var marker = new google.maps.Marker({
@@ -331,27 +351,9 @@ $(document).ready(function () {
             });
         };
     };
+    //#endregion
 
-    $(".radio-button").click(function () {
-        theChoice = $("input[name='rock-paper-scissors']:checked").val();
-        let imageUrl = "assets/images/" + theChoice + ".png";
-        $("#icon-display-left").css('background-image', 'url(\'' + imageUrl + '\'');
-    });
-
-    $("#commit").click(function (event) {
-        console.log("commit: " + theChoice + " as player " + playerNumberOneOrTwo);
-        if (playerNumberOneOrTwo === "one") {
-            database.ref(choicePath).update({
-                playerOneChoice: theChoice,
-            });
-        } else {
-            database.ref(choicePath).update({
-                playerTwoChoice: theChoice,
-            });
-        };
-        $("input[name='rock-paper-scissors']").attr('disabled', true);
-    });
-
+    //#region - player status updates
     function declareWinner(playerOneChoice, playerTwoChoice) {// this can be shortened up
         theWinner = "";
         if (playerOneChoice === "rock" && playerTwoChoice === "rock") {
@@ -444,6 +446,7 @@ $(document).ready(function () {
             otherPlayerStatusField.addClass("message-display-queued");
         };
     };
+    //#endregion
 
-    console.log("v1.578");
+    console.log("v1.58");
 });
