@@ -19,10 +19,12 @@ $(document).ready(function () {
     var userChoicePath;
     var theChoice;
     var playerNumberOneOrTwo;
+    var otherPlayerMapShown = false;
     var theNumberOnline;
     var theLastMessage;
     var geolocationStatusField = $("#geolocation-status");
     var map;
+    var mapOtherPlayer;
 
     $(".add-entry").on("click", function (event) {
         event.preventDefault();
@@ -78,8 +80,16 @@ $(document).ready(function () {
             theLastMessage = theMessageDateTime + theMessageMessage;
         };
         if ((theCurrentGeolocation != "lat: undefined, lng: undefined") && (theCurrentGeolocation != null)) {
-            let theLatLong = { lat: theCurrentLat, lng: theCurrentLong };
-            placeMarker(theLatLong, theMessageUserName);
+            let theLatLong = { lat: theCurrentLat, lng: theCurrentLat };
+            if (theMessageUserName === userName) {
+                placeMarker(theLatLong, theMessageUserName);
+            } else {
+                if (otherPlayerMapShown === false) {
+                    showOtherPlayerMap(theCurrentLat, theCurrentLat);
+                    otherPlayerMapShown = true;
+                }
+                placeMarkerOtherPlayer(theLatLong, theMessageUserName);
+            };
         };
     }, function (errorObject) {
         console.log("entries-error: " + errorObject.code);
@@ -296,7 +306,7 @@ $(document).ready(function () {
             console.log("init map: " + userLatitude, userLongitude);
             initMapLatLong = userLatitude, userLongitude;
             var userLatLong = { lat: userLatitude, lng: userLongitude };
-            map = new google.maps.Map(document.getElementById("map"), {
+            map = new google.maps.Map(document.getElementById("map-left"), {
                 zoom: 16,
                 center: userLatLong
             });
@@ -304,12 +314,34 @@ $(document).ready(function () {
             geolocationStatusField.text("Latitude: " + userLatitude + ", Longitude: " + userLongitude);
         }, 500);
     }
+
+    function showOtherPlayerMap(theLatitude, theLongitude) {
+        setTimeout(function () {
+            console.log("other player map: " + theLatitude, theLongitude);
+            initMapLatLong = theLatitude, theLongitude;
+            var userLatLong = { lat: theLatitude, lng: theLongitude };
+            mapOtherPlayer = new google.maps.Map(document.getElementById("map-right"), {
+                zoom: 16,
+                center: userLatLong
+            });
+            placeMarker(userLatLong, "Other Player");
+        }, 500);
+    }
+
     //#endregion
 
     function placeMarker(theLatLong, title) {
         var marker = new google.maps.Marker({
             position: theLatLong,
             map: map,
+            title: title
+        });
+    }
+
+    function placeMarkerOtherPlayer(theLatLong, title) {
+        var marker = new google.maps.Marker({
+            position: theLatLong,
+            map: mapOtherPlayer,
             title: title
         });
     }
@@ -341,5 +373,5 @@ $(document).ready(function () {
         }, 500);
     };
 
-    console.log("v1.2");
+    console.log("v1.3");
 });
