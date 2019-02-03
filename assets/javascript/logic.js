@@ -85,7 +85,7 @@ $(document).ready(function () {
                 placeMarker(theLatLong, theMessageUserName);
             } else {
                 if (otherPlayerMapShown === false) {
-                    showOtherPlayerMap(theCurrentLat, theCurrentLat);
+                    showOtherPlayerMap(theCurrentLat, theCurrentLong);
                     otherPlayerMapShown = true;
                 }
                 placeMarkerOtherPlayer(theLatLong, theMessageUserName);
@@ -373,5 +373,5 @@ $(document).ready(function () {
         }, 500);
     };
 
-    console.log("v1.3");
+    console.log("v1.31");
 });
