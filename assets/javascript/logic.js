@@ -98,12 +98,12 @@ $(document).ready(function () {
     database.ref(userChoicePath).on("value", function (snapshot) {
         let playerOneChoice = (snapshot.child(userChoicePath + "/playerOneChoice/").val());
         let playerTwoChoice = (snapshot.child(userChoicePath + "/playerTwoChoice/").val());
-        if (playerOneChoice != "" && playerTwoChoice != "") {
-            declareWinner(playerOneChoice, playerTwoChoice);
+        if (playerOneChoice != null && playerTwoChoice != null) {
             database.ref(userChoicePath).set({
-                playerOneChoice: "",
-                playerTwoChoice: "",
+                playerOneChoice: null,
+                playerTwoChoice: null,
             });
+            declareWinner(playerOneChoice, playerTwoChoice);
         };
     }, function (errorObject) {
         console.log("entries-error: " + errorObject.code);
@@ -373,5 +373,5 @@ $(document).ready(function () {
         }, 500);
     };
 
-    console.log("v1.31");
+    console.log("v1.32");
 });
