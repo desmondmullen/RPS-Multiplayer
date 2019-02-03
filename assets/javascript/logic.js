@@ -25,6 +25,7 @@ $(document).ready(function () {
     var thePlayerID;
     var otherPlayerMapShown = false;
     var theNumberOnline;
+    // var theNumberInInstancesPaths;
     var theLastMessage;
     var geolocationStatusField = $("#geolocation-status");
     var map;
@@ -205,13 +206,13 @@ $(document).ready(function () {
     };
 
     function sendEmailLink(theEmailAddress) {
+        createInstancesPath();
         let actionCodeSettings = {
             // URL must be whitelisted in the Firebase Console.
-            'url': "https://desmondmullen.com/RPS-Multiplayer/?" + userInstancesPath,
+            'url': "https://desmondmullen.com/RPS-Multiplayer/?" + instancesPath,
             'handleCodeInApp': true // This must be true.
         };
         firebase.auth().sendSignInLinkToEmail(theEmailAddress, actionCodeSettings).then(function () {
-            window.localStorage.setItem("userInstancesPath", userInstancesPath);
             alert('An email was sent to ' + theEmailAddress + '. This instance can be accessed by anyone using the link in that email.');
         }).catch(function (error) {
             handleError(error);
@@ -226,6 +227,11 @@ $(document).ready(function () {
     }
     //#endregion
 
+    function createInstancesPath() {
+        instancesPath = "instances/" + (+new Date());
+        messagesPath = instancesPath + "/messages";
+    };
+
     function initializeDatabaseReferences() {
         firebase.auth().onAuthStateChanged(function (user) {
             if (user) {
@@ -236,6 +242,10 @@ $(document).ready(function () {
                     userName = shortUserID;
                 };
                 // User is signed in.
+                if (window.location.href.indexOf("?") > 0) {
+                    turnURLIntoInstancesPath();
+                    console.log("user ID after signout: " + userID);
+                };
                 messagesPath = "messages";
                 choicePath = "choice";
                 // playerNumberOneOrTwo = localStorage.playerNumber;
@@ -248,11 +258,27 @@ $(document).ready(function () {
         });
     }
 
+    function turnURLIntoInstancesPath(theLink) {
+        if (theLink == null || path == "" || path == undefined) {
+            theLink = window.location.href;
+        }
+        window.history.replaceState({}, document.title, window.location.href.split('?')[0]);//cleans up sign-in link params
+        let theInstancesPath = (theLink.substring((theLink.indexOf("?") + 1), theLink.indexOf("&")));
+        if (theInstancesPath != null) {
+            instancesPath = decodeURIComponent(theInstancesPath);
+            messagesPath = instancesPath + "/messages";
+            console.log("new path: " + decodeURIComponent(theInstancesPath));
+        } else {
+            console.log("new path was null, existing path is: " + instancesPath);
+        };
+    };
+
     initializeDatabaseReferences();
 
     //#region - geolocation
     var userLatitude;
-    var userLongitude;
+    var
+        Longitude;
     var initMapLatLong;
     var mapDisplayFieldLeft = $("#map-left");
     var mapDisplayFieldRight = $("#map-right");
@@ -388,5 +414,5 @@ $(document).ready(function () {
         }, 500);
     };
 
-    console.log("v1.5");
+    console.log("v1.52");
 });
