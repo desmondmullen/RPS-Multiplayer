@@ -162,8 +162,8 @@ $(document).ready(function () {
                 setPlayerNumber(2);
             };
         };
-        if (theNumberOnline > 2 && playerNumberOneOrTwo !== "zero") {
-            alert("other players are waiting to play, please sign out after you have played a few rounds.");
+        if (theNumberOnline > 2 && playerNumberOneOrTwo === "zero") {
+            alert("The queue of players is full. If you leave this browser tab open, we'll update you when it is your turn to play!");
         };
         console.log("player one or two: " + playerNumberOneOrTwo);
     });
@@ -316,17 +316,19 @@ $(document).ready(function () {
     }
 
     function showOtherPlayerMap(theLatitude, theLongitude) {
-        setTimeout(function () {
-            console.log("other player map: " + theLatitude, theLongitude);
-            initMapLatLong = theLatitude, theLongitude;
-            var userLatLong = { lat: theLatitude, lng: theLongitude };
-            mapOtherPlayer = new google.maps.Map(document.getElementById("map-right"), {
-                zoom: 16,
-                center: userLatLong
-            });
-            placeMarkerOtherPlayer(userLatLong, "Other Player");
-        }, 500);
-    }
+        if (playerNumberOneOrTwo !== "zero") {
+            setTimeout(function () {
+                console.log("other player map: " + theLatitude, theLongitude);
+                initMapLatLong = theLatitude, theLongitude;
+                var userLatLong = { lat: theLatitude, lng: theLongitude };
+                mapOtherPlayer = new google.maps.Map(document.getElementById("map-right"), {
+                    zoom: 16,
+                    center: userLatLong
+                });
+                placeMarkerOtherPlayer(userLatLong, "Other Player");
+            }, 500);
+        };
+    };
 
     //#endregion
 
@@ -414,5 +416,5 @@ $(document).ready(function () {
         }, 500);
     };
 
-    console.log("v1.53");
+    console.log("v1.54");
 });
