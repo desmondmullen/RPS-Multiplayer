@@ -1,3 +1,7 @@
+//not logged in: auto-disconnect after play if more than two in connections (not connectsionref)(?)
+//logged in - same thing, but you have your own instance so unless you sent the link many places
+//you probably won't have more than two connections.
+
 $(document).ready(function () {
     var config = {
         apiKey: "AIzaSyCguBj_V-Q-Y-adGj7Gk8kwazSxVO3bf3c",
@@ -15,7 +19,10 @@ $(document).ready(function () {
     var messagesPath;
     var choicePath;
     var theChoice;
-    var playerNumberOneOrTwo;
+    var playerNumberOneOrTwo = "zero";
+    var firebasePlayerOne;
+    var firebasePlayerTwo;
+    var thePlayerID;
     var otherPlayerMapShown = false;
     var theNumberOnline;
     var theLastMessage;
@@ -116,6 +123,7 @@ $(document).ready(function () {
         userLatitude;
         userLongitude;
         userLatLong;
+        playerNumberOneOrTwo = "zero";
     };
 
     //#region - connections
@@ -124,41 +132,57 @@ $(document).ready(function () {
 
     connectedRef.on("value", function (connectedSnapshot) {
         if (connectedSnapshot.val()) {
-            console.log("requesting connection, number online: " + theNumberOnline);
+            console.log("pushing connection to connected");
             var theConnection = connectionsRef.push(true);
             theConnection.onDisconnect().remove();
         };
     });
+
     connectionsRef.on("value", function (connectionsSnapshot) {
         theNumberOnline = connectionsSnapshot.numChildren();
-        if (theNumberOnline > 2 && playerNumberOneOrTwo === undefined) {
-            alert("please wait to play, there are users ahead of you.");
-        } else {
-            if (playerNumberOneOrTwo === undefined) {
-                if (theNumberOnline === 1) {
-                    playerNumberOneOrTwo = "one";
-                    console.log("you are player one");
-                    localStorage.playerNumber = "one";
-                    database.ref(playersPath).update({
-                        playerOne: (+new Date()),
-                    });
-                } else {
-                    if (theNumberOnline === 2) {
-                        playerNumberOneOrTwo = "two";
-                        console.log("you are player two");
-                        localStorage.playerNumber = "two";
-                        database.ref(playersPath).update({
-                            playerTwo: (+new Date()),
-                        });
-                    };
-                };
+        console.log("number online: " + connectionsSnapshot.numChildren());
+        database.ref().child("connections").once("value", function (snapshot) {
+            snapshot.forEach(function (child) {
+                console.log("connected ref: " + child.key + ": " + child.val());
+            });
+        });
+        if (playerNumberOneOrTwo !== "one") {
+            if (theNumberOnline === 1) {
+                setPlayerNumber(1);
+                console.log("connectionsRef 1");
+            };
+            if (theNumberOnline === 2) {
+                setPlayerNumber(2);
+                console.log("connectionsRef 2");
             };
         };
-        if (theNumberOnline > 2 && playerNumberOneOrTwo !== undefined) {
+        if (theNumberOnline > 2 && playerNumberOneOrTwo !== "zero") {
             alert("other players are waiting to play, please sign out after you have played a few rounds.");
         };
-        console.log("number online: " + connectionsSnapshot.numChildren());
-    }); // Number of online users is the number of objects in the presence list.
+        console.log("player one or two: " + playerNumberOneOrTwo);
+    });
+
+    function setPlayerNumber(thePlayerNumber) {
+        if (thePlayerNumber === 0) {
+            playerNumberOneOrTwo = "zero";
+            console.log("player zeroed");
+            localStorage.playerNumber = "zero";
+        };
+        if (thePlayerNumber === 1) {
+            playerNumberOneOrTwo = "one";
+            console.log("you are player one");
+            localStorage.playerNumber = "one";
+            database.ref(choicePath).set({ //wipe out any partial games
+                playerOneChoice: null,
+                playerTwoChoice: null,
+            });
+        };
+        if (thePlayerNumber === 2) {
+            playerNumberOneOrTwo = "two";
+            console.log("you are player two");
+            localStorage.playerNumber = "two";
+        };
+    };
 
     firebase.auth().signInAnonymously().catch(function (error) {
         let errorCode = error.code;
@@ -168,17 +192,7 @@ $(document).ready(function () {
     });
 
     function signOut() {
-        if (playerNumberOneOrTwo === "one") {
-            database.ref(playersPath).update({
-                playerOne: null,
-            });
-        } else {
-            if (playerNumberOneOrTwo === "two") {
-                database.ref(playersPath).update({
-                    playerTwo: null,
-                });
-            };
-        };
+        playerNumberOneOrTwo === "zero";
         doAddEntry("disconnected");
         firebase.auth().signOut();
         window.localStorage.removeItem("playerNumber");
@@ -221,8 +235,8 @@ $(document).ready(function () {
                 // User is signed in.
                 messagesPath = "messages";
                 choicePath = "choice";
-                playersPath = "players";
-                playerNumberOneOrTwo = localStorage.playerNumber;
+                // playerNumberOneOrTwo = localStorage.playerNumber;
+                // console.log("ls player number: " + localStorage.playerNumber);
                 getLocation();
                 setTimeout(function () {
                     doAddEntry("connected");
