@@ -136,14 +136,14 @@ $(document).ready(function () {
         } else {
             if (playerNumberOneOrTwo === undefined) {
                 if (theNumberOnline === 1) {
-                    playerNumberOneOrTwo = 1;
+                    playerNumberOneOrTwo = "one";
                     console.log("you are player one");
                     database.ref(playersPath).update({
                         playerOne: (+new Date()),
                     });
                 } else {
                     if (theNumberOnline === 2) {
-                        playerNumberOneOrTwo = 2;
+                        playerNumberOneOrTwo = "two";
                         console.log("you are player two");
                         database.ref(playersPath).update({
                             playerTwo: (+new Date()),
@@ -166,12 +166,12 @@ $(document).ready(function () {
     });
 
     function signOut() {
-        if (playerNumberOneOrTwo === 1) {
+        if (playerNumberOneOrTwo === "one") {
             database.ref(playersPath).update({
                 playerOne: null,
             });
         } else {
-            if (playerNumberOneOrTwo === 2) {
+            if (playerNumberOneOrTwo === "two") {
                 database.ref(playersPath).update({
                     playerTwo: null,
                 });
@@ -309,7 +309,7 @@ $(document).ready(function () {
 
     $("#commit").click(function (event) {
         console.log("commit: " + theChoice + " as player " + playerNumberOneOrTwo);
-        if (playerNumberOneOrTwo === 1) {
+        if (playerNumberOneOrTwo === "one") {
             database.ref(choicePath).update({
                 playerOneChoice: theChoice,
             });
@@ -322,11 +322,53 @@ $(document).ready(function () {
     });
 
     function declareWinner(playerOneChoice, playerTwoChoice) {
+        theWinner = "";
+        if (playerOneChoice === "rock" && playerTwoChoice === "rock") {
+            theWinner = "draw";
+        }
+        if (playerOneChoice === "rock" && playerTwoChoice === "paper") {
+            theWinner = "two";
+        }
+        if (playerOneChoice === "rock" && playerTwoChoice === "scissors") {
+            theWinner = "one";
+        }
+        if (playerOneChoice === "paper" && playerTwoChoice === "rock") {
+            theWinner = "one";
+        }
+        if (playerOneChoice === "paper" && playerTwoChoice === "paper") {
+            theWinner = "draw";
+        }
+        if (playerOneChoice === "paper" && playerTwoChoice === "scissors") {
+            theWinner = "two";
+        }
+        if (playerOneChoice === "scissors" && playerTwoChoice === "rock") {
+            theWinner = "two";
+        }
+        if (playerOneChoice === "scissors" && playerTwoChoice === "paper") {
+            theWinner = "one";
+        }
+        if (playerOneChoice === "scissors" && playerTwoChoice === "scissors") {
+            theWinner = "draw";
+        }
+        if (playerNumberOneOrTwo === "one") {
+            theString = "You picked " + playerOneChoice + " and the other player picked " + playerTwoChoice + ".";
+        } else {
+            theString = "You picked " + playerTwoChoice + " and the other player picked " + playerOneChoice + ".";
+        };
+        if (playerNumberOneOrTwo === theWinner) {
+            alert(theString + "\nYou won!");
+        } else {
+            if (theWinner === "draw") {
+                alert("you both picked the same thing, it was a draw");
+            } else {
+                alert(theString + "\nYou lost.");
+            };
+        };
         alert("declare winner: " + playerOneChoice + ", " + playerTwoChoice);
         setTimeout(function () {
             $("input[name='rock-paper-scissors']").attr('disabled', false);
         }, 500);
     };
 
-    console.log("v1.37");
+    console.log("v1.3751");
 });
