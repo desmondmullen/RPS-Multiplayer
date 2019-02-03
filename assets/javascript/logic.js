@@ -164,6 +164,7 @@ $(document).ready(function () {
         };
         if (theNumberOnline > 2 && playerNumberOneOrTwo === "zero") {
             alert("The queue of players is full. If you leave this browser tab open, we'll update you when it is your turn to play!");
+            setOtherPlayerStatus("queued")
         };
         if (theNumberOnline === 2) {
             setOtherPlayerStatus("connected")
@@ -466,5 +467,5 @@ $(document).ready(function () {
         }
     };
 
-    console.log("v1.5772");
+    console.log("v1.5775");
 });
