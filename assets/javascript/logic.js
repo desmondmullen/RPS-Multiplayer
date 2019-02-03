@@ -17,7 +17,6 @@ $(document).ready(function () {
     var userInstancesPath;
     var userMessagesPath;
     var userChoicePath;
-    var userIDpath;
     var theChoice;
     var playerNumberOneOrTwo;
     var theNumberOnline;
@@ -63,9 +62,6 @@ $(document).ready(function () {
             currentLong: userLongitude,
             currentGeolocation: "lat: " + userLatitude +
                 ", lng: " + userLongitude
-        });
-        database.ref(userIDpath).update({
-            userID: (+new Date()),//unique number
         });
         $("#input-message").val("");
     };
@@ -131,20 +127,30 @@ $(document).ready(function () {
     });
     connectionsRef.on("value", function (connectionsSnapshot) {
         theNumberOnline = connectionsSnapshot.numChildren();
-        console.log("assigning user: " + theNumberOnline);
-        // setTimeout(function () {
-        if (playerNumberOneOrTwo === undefined) {
-            if (theNumberOnline === 1) {
-                playerNumberOneOrTwo = 1;
-                console.log("you are player one");
-            } else {
-                if (theNumberOnline === 2) {
-                    playerNumberOneOrTwo = 2;
-                    console.log("you are player two");
+        if (theNumberOnline > 2 && playerNumberOneOrTwo === undefined) {
+            alert("please wait to play, there are users ahead of you.");
+        } else {
+            if (playerNumberOneOrTwo === undefined) {
+                if (theNumberOnline === 1) {
+                    playerNumberOneOrTwo = 1;
+                    console.log("you are player one");
+                    database.ref(playersPath).update({
+                        playerOne: (+new Date()),
+                    });
+                } else {
+                    if (theNumberOnline === 2) {
+                        playerNumberOneOrTwo = 2;
+                        console.log("you are player two");
+                        database.ref(playersPath).update({
+                            playerTwo: (+new Date()),
+                        });
+                    };
                 };
             };
         };
-        // }, 3000);
+        if (theNumberOnline > 2 && playerNumberOneOrTwo !== undefined) {
+            alert("other players are waiting to play, please sign out after you have played a few rounds.");
+        };
         console.log("number online: " + connectionsSnapshot.numChildren());
     }); // Number of online users is the number of objects in the presence list.
 
@@ -156,6 +162,7 @@ $(document).ready(function () {
     });
 
     function turnURLIntoUserInstancesPath(theLink) {
+        console.log("turn URL into user instances path");
         if (theLink == null || path == "" || path == undefined) {
             theLink = window.location.href;
         }
@@ -172,6 +179,17 @@ $(document).ready(function () {
     };
 
     function signOut() {
+        if (playerNumberOneOrTwo === 1) {
+            database.ref(playersPath).update({
+                playerOne: null,
+            });
+        } else {
+            if (playerNumberOneOrTwo === 2) {
+                database.ref(playersPath).update({
+                    playerTwo: null,
+                });
+            };
+        };
         doAddEntry("disconnected");
         firebase.auth().signOut();
         userSignedIn = false;
@@ -223,14 +241,15 @@ $(document).ready(function () {
                     console.log("user ID after signout: " + userID);
                 } else {
                     if (localStorageUIPath != null) {
+                        console.log("restoring userInstancePath from local storage");
                         userInstancesPath = localStorageUIPath;
                     } else {
                         userInstancesPath = "users/" + userID + "/instances/" + (+new Date());
                     }
                     userMessagesPath = userInstancesPath + "/messages";
                 }
-                userIDpath = userInstancesPath;
                 userChoicePath = userInstancesPath + "/choice";
+                playersPath = userInstancesPath + "/players";
 
                 if (localStorageLastURLParams != null) {
                     turnURLIntoUserInstancesPath(localStorageLastURLParams);
@@ -322,5 +341,5 @@ $(document).ready(function () {
         }, 500);
     };
 
-    console.log("v1.1");
+    console.log("v1.2");
 });
