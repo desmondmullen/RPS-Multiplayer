@@ -114,6 +114,7 @@ $(document).ready(function () {
                 playerOneChoice: null,
                 playerTwoChoice: null,
             });
+            $("#other-player-status").html("");
             declareWinner(playerOneChoice, playerTwoChoice);
         };
     }, function (errorObject) {
@@ -405,18 +406,30 @@ $(document).ready(function () {
             theString = "You picked " + playerTwoChoice + " and the other player picked " + playerOneChoice + ".";
         };
         if (playerNumberOneOrTwo === theWinner) {
-            alert(theString + "\nYou won!");
+            theString = (theString + "\nYou won!");
+            winLoseDraw = "win";
         } else {
             if (theWinner === "draw") {
-                alert("you both picked the same thing, it was a draw");
+                theString = ("you both picked the same thing, it was a draw");
+                winLoseDraw = "draw";
             } else {
-                alert(theString + "\nYou lost.");
+                theString = (theString + "\nYou lost.");
+                winLoseDraw = "lose";
             };
         };
+        let theTextToPutBack = $("#message-display").html();
+        $("#message-display").html(theString);
+        // $("#message-display").removeClass("message-display");
+        $("#message-display").addClass(winLoseDraw);
+        setTimeout(function () {
+            $("#message-display").html(theTextToPutBack);
+            $("#message-display").removeClass(winLoseDraw);
+            // $("#message-display").css("class", "message-display");
+        }, 3000);
         setTimeout(function () {
             $("input[name='rock-paper-scissors']").attr('disabled', false);
         }, 500);
     };
 
-    console.log("v1.55");
+    console.log("v1.57");
 });

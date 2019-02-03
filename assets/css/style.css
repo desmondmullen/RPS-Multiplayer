@@ -135,13 +135,42 @@ hr {
     margin-left: 40%;
 }
 
-#message-display {
+.message-display {
+    display: static;
     float: left;
     height: 35vh;
     width: 40vw;
     color: white;
     padding: 10px 20px;
     background-color: lightslategray;
+}
+
+.win, .lose, .draw {
+    font-size: xx-large;
+    text-align: center;
+    display: static;
+    float: left;
+    height: 35vh;
+    width: 40vw;
+    font-weight: bold;
+    color: white;
+    padding: 10px 20px;
+    background-color: lightslategray;
+}
+
+.win {
+    color: black;
+    background-color: lightgreen;
+}
+
+.lose {
+    color: black;
+    background-color: lightcoral;
+}
+
+.draw {
+    color: black;
+    background-color: white;
 }
 
 #map-left, #map-right {
