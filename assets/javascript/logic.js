@@ -208,10 +208,10 @@ $(document).ready(function () {
     };
 
     function sendEmailLink(theEmailAddress) {
-        createInstancesPath();
+        // createInstancesPath();
         let actionCodeSettings = {
             // URL must be whitelisted in the Firebase Console.
-            'url': "https://desmondmullen.com/RPS-Multiplayer/?" + instancesPath,
+            'url': "https://desmondmullen.com/RPS-Multiplayer/",
             'handleCodeInApp': true // This must be true.
         };
         firebase.auth().sendSignInLinkToEmail(theEmailAddress, actionCodeSettings).then(function () {
@@ -244,10 +244,10 @@ $(document).ready(function () {
                     userName = shortUserID;
                 };
                 // User is signed in.
-                if (window.location.href.indexOf("?") > 0) {
-                    turnURLIntoInstancesPath();
-                    console.log("user ID after signout: " + userID);
-                };
+                // if (window.location.href.indexOf("?") > 0) {
+                //     turnURLIntoInstancesPath();
+                //     console.log("user ID after signout: " + userID);
+                // };
                 messagesPath = "messages";
                 choicePath = "choice";
                 // playerNumberOneOrTwo = localStorage.playerNumber;
@@ -266,13 +266,13 @@ $(document).ready(function () {
         }
         window.history.replaceState({}, document.title, window.location.href.split('?')[0]);//cleans up sign-in link params
         let theInstancesPath = (theLink.substring((theLink.indexOf("?") + 1), theLink.indexOf("&")));
-        if (theInstancesPath != null) {
-            instancesPath = decodeURIComponent(theInstancesPath);
-            messagesPath = instancesPath + "/messages";
-            console.log("new path: " + decodeURIComponent(theInstancesPath));
-        } else {
-            console.log("new path was null, existing path is: " + instancesPath);
-        };
+        // if (theInstancesPath != null) {
+        //     instancesPath = decodeURIComponent(theInstancesPath);
+        //     messagesPath = instancesPath + "/messages";
+        //     console.log("new path: " + decodeURIComponent(theInstancesPath));
+        // } else {
+        //     console.log("new path was null, existing path is: " + instancesPath);
+        // };
     };
 
     initializeDatabaseReferences();
@@ -449,5 +449,5 @@ $(document).ready(function () {
         }
     };
 
-    console.log("v1.575");
+    console.log("v1.577");
 });
