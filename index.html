@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0, user-scalable=yes'>
+    <meta charset="UTF-8">
+    <title>Rock Paper Scissors</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.8.1/firebase.js"></script>
+    <script src="assets/javascript/logic.js"></script>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBPchfMQ9Do2TWSFQTKjKJlitT5y_Fdrdc&callback=initMap">
+    </script>
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h3>Rock Paper Scissors</h3>
+    </header>
+    <form class="input-form">
+        <label for="input-message" class="label-message">Message:</label> <input id="input-message" type="text" name="input-message">
+        <div id="add-entry-display"><button id="add-entry" class="add-entry">Add Message</button>
+        </div>
+    </form>
+    <div id="signout-button"><button id="send-link">Send
+            Link</button>
+        <button id="sign-out">Sign Out</button></div>
+    <div id="player-left">
+        <input id="rock-left" type="radio" class="radio-button" name="rock-paper-scissors" value="rock" checked>Rock<input
+            id="paper-left" type="radio" class="radio-button" name="rock-paper-scissors" value="paper">Paper<input id="scissors-left"
+            type="radio" class="radio-button" name="rock-paper-scissors" value="scissors">Scissors</div>
+    <div id="message-display"></div>
+    <div id="player-right">
+        <input id="rock-right" type="radio" class="radio-button" name="rock-paper-scissors" value="rock">Rock<input id="paper-right"
+            type="radio" class="radio-button" name="rock-paper-scissors" value="paper">Paper<input id="scissors-right"
+            type="radio" class="radio-button" name="rock-paper-scissors" value="scissors">Scissors</div>
+    </div>
+    <div id="map-left"></div>
+    <div id="map-right"></div>
+    <div class="bottom-bar">
+        <section id="geolocation-status">Updating geolocation...</section>
+        <section class='copyright'>&copy; 2019 <a href='https://desmondmullen.com' target='_blank' class='copyright-link'>desmondmullen.com</a></section>
+    </div>
+</body>
+
+</html>

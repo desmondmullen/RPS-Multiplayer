@@ -1,0 +1,230 @@
+header {
+    text-align: center;
+    background-color: gold;
+}
+
+button {
+    margin: 10px 5px;
+}
+
+p {
+    width: 70%;
+    margin-left: 15%;
+}
+
+#signout-button {
+    text-align: right;
+    position: absolute;
+    top: 105px;
+    right: 5px;
+}
+
+#input-message, #input-test {
+    display: block;
+    text-align: left;
+    width: 90%;
+    margin: 0 auto;
+}
+
+#add-entry-display {
+    display: block;
+    width: 100%;
+    text-align: center;
+}
+
+/* #application {
+    display: inline;
+}
+ */
+
+.input-form {
+    background-color: lightskyblue;
+    padding: 10px 0 0 0;
+}
+
+label {
+    /* text-align: right; */
+    font-weight: bold;
+    margin: 0 20px;
+}
+
+.monospace {
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.text-align-left {
+    text-align: left;
+}
+
+.text-align-right {
+    text-align: right;
+}
+
+.text-align-center {
+    text-align: center;
+}
+
+.input-entry {
+    width: 10ch;
+    margin: 5px;
+}
+
+hr {
+    margin: 5px;
+    border-top: 1px solid black;
+}
+
+#geolocation-status {
+    position: fixed;
+    bottom: 0;
+    padding: 5px;
+    left: 10px;
+    color: white;
+}
+
+.copyright {
+    position: fixed;
+    bottom: 0;
+    padding: 5px;
+    right: 10px;
+    color: white;
+}
+
+.copyright-link {
+    color: white;
+}
+
+.radio-button {
+    margin: 10px 5px 10px 20px;
+}
+
+#player-left, #player-right {
+    text-align: center;
+    height: 35vh;
+    width: 30vw;
+    padding: 10px 20px;
+}
+
+#player-left {
+    float: left;
+}
+
+#player-right {
+    float: right;
+}
+
+#message-display {
+    float: left;
+    height: 35vh;
+    width: 40vw;
+    color: white;
+    padding: 10px 20px;
+    background-color: lightslategray;
+}
+
+#map-left, #map-right {
+    float: left;
+    width: 50vw;
+    height: 35%;
+}
+
+#map-left {
+    background-color: lightgreen;
+}
+
+#map-right {
+    background-color: pink;
+}
+
+#geolocation-list {
+    position: fixed;
+    bottom: 4ch;
+    height: 7ch;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.bottom-bar {
+    width: 100%;
+    height: 3ch;
+    text-align: right;
+    position: fixed;
+    bottom: 0;
+    padding-right: 10px;
+    left: 0;
+    color: white;
+    background-color: darkslategray;
+}
+
+@-ms-viewport {
+    width: device-width;
+}
+
+@media only screen and (max-width: 900px) {
+    body {
+        margin: 5px 0px 4.5ch 0px;
+    }
+    h3 {
+        font-size: x-large;
+        margin: 5px 0 0 0;
+    }
+    p {
+        width: 100%;
+        margin-left: 0;
+    }
+    .input-form {
+        padding: 5px 0 0 0;
+    }
+    button {
+        padding: 0;
+    }
+    label {
+        margin: 5px 0px 0px 0px;
+    }
+    #signout-button {
+        text-align: center;
+        position: relative;
+        top: 0;
+        right: 0;
+        padding: 0;
+        margin: 0;
+    }
+    #signout-button button {
+        padding: 0;
+        margin: 0 10px;
+    }
+    #geolocation-status {
+        position: relative;
+        padding: 0;
+        left: 0;
+        font-size: x-small;
+    }
+    .copyright {
+        position: relative;
+        padding: 0;
+        right: 0;
+        font-size: x-small;
+    }
+    .bottom-bar {
+        width: 100%;
+        height: 5ch;
+        text-align: center;
+        font-size: x-small;
+        position: fixed;
+        bottom: 0;
+        /* padding: 5px; */
+        left: 0;
+        color: white;
+        background-color: darkslategray;
+    }
+}
+
+@media only screen and (max-width: 800px) {
+    /*really small margins for better layout on mobile in portrait*/
+}
+
+@media screen and (max-width: 767px) {}
+
+@media only screen and (max-width: 600px) {
+    /*really small margins for better layout on mobile in portrait*/
+}
