@@ -114,19 +114,19 @@ hr {
 }
 
 #icon-display-left {
-    height: 20vh;
+    height: 15vh;
     background-image: url("../images/rock.png");
     background-repeat: no-repeat;
-    background-size: 15vh;
+    background-size: 10vh;
     margin-top: 20px;
     margin-left: 40%;
 }
 
 #icon-display-right {
-    height: 20vh;
+    height: 15vh;
     background-image: url("../images/questionmark.png");
     background-repeat: no-repeat;
-    background-size: 15vh;
+    background-size: 10vh;
     margin-top: 20px;
     margin-left: 40%;
 }

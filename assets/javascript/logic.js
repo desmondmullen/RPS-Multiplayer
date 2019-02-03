@@ -17,6 +17,10 @@ $(document).ready(function () {
     var userInstancesPath;
     var userMessagesPath;
     var userChoicePath;
+    var userIDpath;
+    var theChoice;
+    var playerNumberOneOrTwo;
+    var theNumberOnline;
     var theLastMessage;
     var geolocationStatusField = $("#geolocation-status");
     var map;
@@ -27,7 +31,6 @@ $(document).ready(function () {
     });
 
     $("#send-link").on("click", function () {
-        console.log("sending user instances path: " + userInstancesPath);
         let theEmailAddressToSendLinkTo = prompt("Please enter the email address to send the link to:");
         if (theEmailAddressToSendLinkTo != null) {
             sendEmailLink(theEmailAddressToSendLinkTo);
@@ -61,6 +64,9 @@ $(document).ready(function () {
             currentGeolocation: "lat: " + userLatitude +
                 ", lng: " + userLongitude
         });
+        database.ref(userIDpath).update({
+            userID: (+new Date()),//unique number
+        });
         $("#input-message").val("");
     };
 
@@ -84,7 +90,15 @@ $(document).ready(function () {
     });
 
     database.ref(userChoicePath).on("value", function (snapshot) {
-        console.log("choice: " + snapshot.child(userChoicePath + "/choice/").val());
+        let playerOneChoice = (snapshot.child(userChoicePath + "/playerOneChoice/").val());
+        let playerTwoChoice = (snapshot.child(userChoicePath + "/playerTwoChoice/").val());
+        if (playerOneChoice != "" && playerTwoChoice != "") {
+            declareWinner(playerOneChoice, playerTwoChoice);
+            database.ref(userChoicePath).set({
+                playerOneChoice: "",
+                playerTwoChoice: "",
+            });
+        };
     }, function (errorObject) {
         console.log("entries-error: " + errorObject.code);
     });
@@ -116,11 +130,25 @@ $(document).ready(function () {
         };
     });
     connectionsRef.on("value", function (connectionsSnapshot) {
+        theNumberOnline = connectionsSnapshot.numChildren();
+        console.log("assigning user: " + theNumberOnline);
+        // setTimeout(function () {
+        if (playerNumberOneOrTwo === undefined) {
+            if (theNumberOnline === 1) {
+                playerNumberOneOrTwo = 1;
+                console.log("you are player one");
+            } else {
+                if (theNumberOnline === 2) {
+                    playerNumberOneOrTwo = 2;
+                    console.log("you are player two");
+                };
+            };
+        };
+        // }, 3000);
         console.log("number online: " + connectionsSnapshot.numChildren());
     }); // Number of online users is the number of objects in the presence list.
 
     firebase.auth().signInAnonymously().catch(function (error) {
-        console.log("sign in anonymously");
         let errorCode = error.code;
         let errorMessage = error.message;
         console.log("anonymous login error: " + errorCode, errorMessage);
@@ -178,7 +206,6 @@ $(document).ready(function () {
     function initializeDatabaseReferences() {
         let localStorageUIPath = window.localStorage.getItem("userInstancesPath");
         let localStorageLastURLParams = window.localStorage.getItem("theLastURLParameters");
-        console.log("localStorageUIPath: " + localStorageUIPath);
         firebase.auth().onAuthStateChanged(function (user) {
             if (user) {
                 console.log("auth state changed: " + user.uid);
@@ -202,6 +229,7 @@ $(document).ready(function () {
                     }
                     userMessagesPath = userInstancesPath + "/messages";
                 }
+                userIDpath = userInstancesPath;
                 userChoicePath = userInstancesPath + "/choice";
 
                 if (localStorageLastURLParams != null) {
@@ -267,16 +295,32 @@ $(document).ready(function () {
         });
     }
 
-    $(".radio-button").click(function (event) {
-        console.log($(this).val());
-        let theChoice = $(this).val();
+    $(".radio-button").click(function () {
+        theChoice = $("input[name='rock-paper-scissors']:checked").val();
         let imageUrl = "assets/images/" + theChoice + ".png";
         $("#icon-display-left").css('background-image', 'url(\'' + imageUrl + '\'');
-        database.ref(userChoicePath).set({
-            playerChoice: theChoice,
-        });
-
     });
+
+    $("#commit").click(function (event) {
+        console.log("commit: " + theChoice + " as player " + playerNumberOneOrTwo);
+        if (playerNumberOneOrTwo === 1) {
+            database.ref(userChoicePath).update({
+                playerOneChoice: theChoice,
+            });
+        } else {
+            database.ref(userChoicePath).update({
+                playerTwoChoice: theChoice,
+            });
+        };
+        $("input[name='rock-paper-scissors']").attr('disabled', true);
+    });
+
+    function declareWinner(playerOneChoice, playerTwoChoice) {
+        alert("declare winner: " + playerOneChoice + ", " + playerTwoChoice);
+        setTimeout(function () {
+            $("input[name='rock-paper-scissors']").attr('disabled', false);
+        }, 500);
+    };
 
     console.log("v1");
 });
