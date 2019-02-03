@@ -338,15 +338,17 @@ $(document).ready(function () {
             map: map,
             title: title
         });
-    }
+    };
 
     function placeMarkerOtherPlayer(theLatLong, title) {
-        var marker = new google.maps.Marker({
-            position: theLatLong,
-            map: mapOtherPlayer,
-            title: title
-        });
-    }
+        if (playerNumberOneOrTwo !== "zero") {
+            var marker = new google.maps.Marker({
+                position: theLatLong,
+                map: mapOtherPlayer,
+                title: title
+            });
+        };
+    };
 
     $(".radio-button").click(function () {
         theChoice = $("input[name='rock-paper-scissors']:checked").val();
@@ -368,7 +370,7 @@ $(document).ready(function () {
         $("input[name='rock-paper-scissors']").attr('disabled', true);
     });
 
-    function declareWinner(playerOneChoice, playerTwoChoice) {
+    function declareWinner(playerOneChoice, playerTwoChoice) {// this can be shortened up
         theWinner = "";
         if (playerOneChoice === "rock" && playerTwoChoice === "rock") {
             theWinner = "draw";
@@ -416,5 +418,5 @@ $(document).ready(function () {
         }, 500);
     };
 
-    console.log("v1.54");
+    console.log("v1.55");
 });
