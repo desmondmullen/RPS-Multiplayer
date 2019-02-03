@@ -16,6 +16,7 @@ $(document).ready(function () {
     var userIdentificationPath;
     var userInstancesPath;
     var userMessagesPath;
+    var userChoicePath;
     var theLastMessage;
     var geolocationStatusField = $("#geolocation-status");
     var map;
@@ -82,6 +83,12 @@ $(document).ready(function () {
         console.log("entries-error: " + errorObject.code);
     });
 
+    database.ref(userChoicePath).on("value", function (snapshot) {
+        console.log("choice: " + snapshot.child(userChoicePath + "/choice/").val());
+    }, function (errorObject) {
+        console.log("entries-error: " + errorObject.code);
+    });
+
     function emptyInputFields() {
         console.log("empty input fields");
         $("#input-message").val("");
@@ -92,6 +99,7 @@ $(document).ready(function () {
         userIdentificationPath = "";
         userInstancesPath = "";
         userMessagesPath = "";
+        userChoicePath = "";
         userLatitude;
         userLongitude;
         userLatLong;
@@ -148,7 +156,7 @@ $(document).ready(function () {
     function sendEmailLink(theEmailAddress) {
         let actionCodeSettings = {
             // URL must be whitelisted in the Firebase Console.
-            'url': "https://desmondmullen.com/simple-messaging/?" + userInstancesPath,
+            'url': "https://desmondmullen.com/RPS-Multiplayer/?" + userInstancesPath,
             'handleCodeInApp': true // This must be true.
         };
         firebase.auth().sendSignInLinkToEmail(theEmailAddress, actionCodeSettings).then(function () {
@@ -194,6 +202,8 @@ $(document).ready(function () {
                     }
                     userMessagesPath = userInstancesPath + "/messages";
                 }
+                userChoicePath = userInstancesPath + "/choice";
+
                 if (localStorageLastURLParams != null) {
                     turnURLIntoUserInstancesPath(localStorageLastURLParams);
                 };
@@ -256,6 +266,17 @@ $(document).ready(function () {
             title: title
         });
     }
+
+    $(".radio-button").click(function (event) {
+        console.log($(this).val());
+        let theChoice = $(this).val();
+        let imageUrl = "assets/images/" + theChoice + ".png";
+        $("#icon-display-left").css('background-image', 'url(\'' + imageUrl + '\'');
+        database.ref(userChoicePath).set({
+            playerChoice: theChoice,
+        });
+
+    });
 
     console.log("v1");
 });
