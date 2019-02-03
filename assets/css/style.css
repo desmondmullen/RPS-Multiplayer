@@ -1,6 +1,7 @@
 header {
     text-align: center;
     background-color: gold;
+    margin: 0 1vw 2vh 1vw;
 }
 
 button {
@@ -15,8 +16,8 @@ p {
 #signout-button {
     text-align: right;
     position: absolute;
-    top: 105px;
-    right: 5px;
+    top: 14vh;
+    right: 2vw;
 }
 
 #input-message, #input-test {
@@ -35,6 +36,7 @@ p {
 .input-form {
     background-color: lightskyblue;
     padding: 10px 0 0 0;
+    margin: 2vh 1vw 2vh 1vw;
 }
 
 label {
@@ -112,12 +114,18 @@ hr {
     float: right;
 }
 
+.area-title {
+    font-size: xx-large;
+    font-weight: bold;
+    font-style: italic;
+}
+
 #icon-display-left {
     height: 15vh;
     background-image: url("../images/rock.png");
     background-repeat: no-repeat;
     background-size: 10vh;
-    margin-top: 20px;
+    margin-top: 4vh;
     margin-left: 40%;
 }
 
@@ -126,7 +134,7 @@ hr {
     background-image: url("../images/questionmark.png");
     background-repeat: no-repeat;
     background-size: 10vh;
-    margin-top: 70px;
+    margin-top: 5vh;
     margin-left: 40%;
 }
 
@@ -241,9 +249,14 @@ hr {
 }
 
 #map-left, #map-right {
+    margin: 2vh 1vw 0 1vw;
     float: left;
-    width: 50vw;
+    width: 48vw;
     height: 35%;
+}
+
+#map-right {
+    float: right;
 }
 
 #map-left {
