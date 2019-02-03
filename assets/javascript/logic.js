@@ -138,6 +138,7 @@ $(document).ready(function () {
                 if (theNumberOnline === 1) {
                     playerNumberOneOrTwo = "one";
                     console.log("you are player one");
+                    localStorage.playerNumber = "one";
                     database.ref(playersPath).update({
                         playerOne: (+new Date()),
                     });
@@ -145,6 +146,7 @@ $(document).ready(function () {
                     if (theNumberOnline === 2) {
                         playerNumberOneOrTwo = "two";
                         console.log("you are player two");
+                        localStorage.playerNumber = "two";
                         database.ref(playersPath).update({
                             playerTwo: (+new Date()),
                         });
@@ -179,8 +181,7 @@ $(document).ready(function () {
         };
         doAddEntry("disconnected");
         firebase.auth().signOut();
-        userSignedIn = false;
-        window.localStorage.removeItem("userInstancesPath");
+        window.localStorage.removeItem("playerNumber");
         emptyInputFields();
         window.history.replaceState({}, document.title, window.location.href.split('?')[0]);//cleans up sign-in link params
         location = location;
@@ -221,6 +222,7 @@ $(document).ready(function () {
                 messagesPath = "messages";
                 choicePath = "choice";
                 playersPath = "players";
+                playerNumberOneOrTwo = localStorage.playerNumber;
                 getLocation();
                 setTimeout(function () {
                     doAddEntry("connected");
@@ -369,5 +371,5 @@ $(document).ready(function () {
         }, 500);
     };
 
-    console.log("v1.3752");
+    console.log("v1.3755");
 });
