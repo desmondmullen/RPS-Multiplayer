@@ -279,7 +279,7 @@ $(document).ready(function () {
                 zoom: 16,
                 center: userLatLong
             });
-            placeMarker(userLatLong, "Other Player");
+            placeMarkerOtherPlayer(userLatLong, "Other Player");
         }, 500);
     }
 
@@ -328,5 +328,5 @@ $(document).ready(function () {
         }, 500);
     };
 
-    console.log("v1.35");
+    console.log("v1.36");
 });
