@@ -32,11 +32,6 @@ p {
     text-align: center;
 }
 
-/* #application {
-    display: inline;
-}
- */
-
 .input-form {
     background-color: lightskyblue;
     padding: 10px 0 0 0;
@@ -171,6 +166,26 @@ hr {
 .draw {
     color: black;
     background-color: white;
+}
+
+#other-player-status {
+    color: black;
+    background-color: white;
+}
+
+.waiting {
+    color: white;
+    background-color: red;
+}
+
+.connected {
+    color: black;
+    background-color: yellow;
+}
+
+.made-choice {
+    color: white;
+    background-color: green;
 }
 
 #map-left, #map-right {

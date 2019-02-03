@@ -103,10 +103,10 @@ $(document).ready(function () {
         let playerOneChoice = (snapshot.child(choicePath + "/playerOneChoice/").val());
         let playerTwoChoice = (snapshot.child(choicePath + "/playerTwoChoice/").val());
         if (playerNumberOneOrTwo === "one" && playerTwoChoice != null) {
-            $("#other-player-status").html("The other player has made a choice");
+            setOtherPlayerStatus("made choice");
         };
         if (playerNumberOneOrTwo === "two" && playerOneChoice != null) {
-            $("#other-player-status").html("The other player has made a choice");
+            setOtherPlayerStatus("made choice");
         };
 
         if (playerOneChoice != null && playerTwoChoice != null) {
@@ -114,7 +114,6 @@ $(document).ready(function () {
                 playerOneChoice: null,
                 playerTwoChoice: null,
             });
-            $("#other-player-status").html("");
             declareWinner(playerOneChoice, playerTwoChoice);
         };
     }, function (errorObject) {
@@ -178,6 +177,7 @@ $(document).ready(function () {
         if (thePlayerNumber === 1) {
             playerNumberOneOrTwo = "one";
             localStorage.playerNumber = "one";
+            setOtherPlayerStatus("waiting");
             database.ref(choicePath).set({ //wipe out any partial games
                 playerOneChoice: null,
                 playerTwoChoice: null,
@@ -186,6 +186,7 @@ $(document).ready(function () {
         if (thePlayerNumber === 2) {
             playerNumberOneOrTwo = "two";
             localStorage.playerNumber = "two";
+            setOtherPlayerStatus("connected");
         };
     };
 
@@ -424,12 +425,29 @@ $(document).ready(function () {
         setTimeout(function () {
             $("#message-display").html(theTextToPutBack);
             $("#message-display").removeClass(winLoseDraw);
-            // $("#message-display").css("class", "message-display");
+            setOtherPlayerStatus("connected");
         }, 3000);
         setTimeout(function () {
             $("input[name='rock-paper-scissors']").attr('disabled', false);
         }, 500);
     };
+    function setOtherPlayerStatus(status) {
+        if (status === "waiting") {
+            $("#other-player-status").html("Waiting for another player to connect");
+            $("#other-player-status").removeClass();
+            $("#other-player-status").addClass("waiting");
+        }
+        if (status === "connected") {
+            $("#other-player-status").html("Another player is connected");
+            $("#other-player-status").removeClass();
+            $("#other-player-status").addClass("connected");
+        }
+        if (status === "made choice") {
+            $("#other-player-status").html("The other player has made a choice");
+            $("#other-player-status").removeClass();
+            $("#other-player-status").addClass("made-choice");
+        }
+    };
 
-    console.log("v1.57");
+    console.log("v1.575");
 });
