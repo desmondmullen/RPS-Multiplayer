@@ -19,13 +19,13 @@ $(document).ready(function () {
     var messagesPath;
     var choicePath;
     var theChoice;
+    var theString;
     var playerNumberOneOrTwo = "zero";
     var firebasePlayerOne;
     var firebasePlayerTwo;
     var thePlayerID;
     var otherPlayerMapShown = false;
     var theNumberOnline;
-    // var theNumberInInstancesPaths;
     var theLastMessage;
     var geolocationStatusField = $("#geolocation-status");
     var map;
@@ -150,9 +150,6 @@ $(document).ready(function () {
         theNumberOnline = connectionsSnapshot.numChildren();
         console.log("number online: " + connectionsSnapshot.numChildren());
         database.ref().child("connections").once("value", function (snapshot) {
-            // snapshot.forEach(function (child) {
-            //     console.log("connected ref: " + child.key + ": " + child.val());
-            // });
         });
         if (playerNumberOneOrTwo !== "one") {
             if (theNumberOnline === 1) {
@@ -221,7 +218,6 @@ $(document).ready(function () {
     };
 
     function sendEmailLink(theEmailAddress) {
-        // createInstancesPath();
         let actionCodeSettings = {
             // URL must be whitelisted in the Firebase Console.
             'url': "https://desmondmullen.com/RPS-Multiplayer/",
@@ -242,29 +238,17 @@ $(document).ready(function () {
     }
     //#endregion
 
-    function createInstancesPath() {
-        instancesPath = "instances/" + (+new Date());
-        messagesPath = instancesPath + "/messages";
-    };
-
     function initializeDatabaseReferences() {
         firebase.auth().onAuthStateChanged(function (user) {
             if (user) {
-                userID = user.uid; //when connecting by link, this will be the same user
+                userID = user.uid;
                 let shortUserID = Math.floor(Math.random() * 1000 + 1000);
                 userName = prompt("Please enter a name to use for sending messages. If you don't choose one, we'll call you by this random number:", shortUserID);
                 if (userName == null || userName.trim() == "") {
                     userName = shortUserID;
                 };
-                // User is signed in.
-                // if (window.location.href.indexOf("?") > 0) {
-                //     turnURLIntoInstancesPath();
-                //     console.log("user ID after signout: " + userID);
-                // };
                 messagesPath = "messages";
                 choicePath = "choice";
-                // playerNumberOneOrTwo = localStorage.playerNumber;
-                // console.log("ls player number: " + localStorage.playerNumber);
                 getLocation();
                 setTimeout(function () {
                     doAddEntry("connected");
@@ -273,27 +257,11 @@ $(document).ready(function () {
         });
     }
 
-    function turnURLIntoInstancesPath(theLink) {
-        if (theLink == null || path == "" || path == undefined) {
-            theLink = window.location.href;
-        }
-        window.history.replaceState({}, document.title, window.location.href.split('?')[0]);//cleans up sign-in link params
-        let theInstancesPath = (theLink.substring((theLink.indexOf("?") + 1), theLink.indexOf("&")));
-        // if (theInstancesPath != null) {
-        //     instancesPath = decodeURIComponent(theInstancesPath);
-        //     messagesPath = instancesPath + "/messages";
-        //     console.log("new path: " + decodeURIComponent(theInstancesPath));
-        // } else {
-        //     console.log("new path was null, existing path is: " + instancesPath);
-        // };
-    };
-
     initializeDatabaseReferences();
 
     //#region - geolocation
     var userLatitude;
-    var
-        Longitude;
+    var userLongitude;
     var initMapLatLong;
     var mapDisplayFieldLeft = $("#map-left");
     var mapDisplayFieldRight = $("#map-right");
@@ -344,7 +312,6 @@ $(document).ready(function () {
             }, 500);
         };
     };
-
     //#endregion
 
     function placeMarker(theLatLong, title) {
@@ -431,41 +398,52 @@ $(document).ready(function () {
                 winLoseDraw = "lose";
             };
         };
-        let theTextToPutBack = $("#message-display").html();
-        $("#message-display").html(theString);
-        // $("#message-display").removeClass("message-display");
-        $("#message-display").addClass(winLoseDraw);
+        changeMessageDisplay(theString, winLoseDraw);
         setTimeout(function () {
-            $("#message-display").html(theTextToPutBack);
-            $("#message-display").removeClass(winLoseDraw);
-            setOtherPlayerStatus("connected");
-        }, 3000);
-        setTimeout(function () {
+            $("#other-player-status").html("Another player is connected");
             $("input[name='rock-paper-scissors']").attr('disabled', false);
         }, 500);
     };
-    function setOtherPlayerStatus(status) {
-        if (status === "waiting") {
-            $("#other-player-status").html("Waiting for another player to connect");
-            $("#other-player-status").removeClass();
-            $("#other-player-status").addClass("waiting");
-        }
-        if (status === "connected") {
-            $("#other-player-status").html("Another player is connected");
-            $("#other-player-status").removeClass();
-            $("#other-player-status").addClass("connected");
-        }
-        if (status === "made choice") {
-            $("#other-player-status").html("The other player has made a choice");
-            $("#other-player-status").removeClass();
-            $("#other-player-status").addClass("made-choice");
-        }
-        if (status === "queued") {
-            $("#other-player-status").html("<em>waiting in queue for next opening</em>");
-            $("#other-player-status").removeClass();
-            $("#other-player-status").addClass("queued");
-        }
+
+    function changeMessageDisplay(message, theClass) {
+        let theTextToPutBack = $("#message-display").html();
+        $("#message-display").html(message);
+        $("#message-display").removeClass("message-display");
+        $("#message-display").addClass(theClass);
+        setTimeout(function () {
+            $("#message-display").html(theTextToPutBack);
+            $("#message-display").removeClass(theClass);
+            $("#message-display").addClass("message-display");
+        }, 3000);
     };
 
-    console.log("v1.5775");
+    function setOtherPlayerStatus(status) {
+        otherPlayerStatusField = $("#other-player-status");
+        if (status === "waiting") {
+            let theMessage = "Waiting for another player to connect<br>";
+            otherPlayerStatusField.html(theMessage);
+            otherPlayerStatusField.removeClass();
+            otherPlayerStatusField.addClass("waiting");
+            changeMessageDisplay(theMessage, "message-display-waiting")
+        };
+        if (status === "connected") {
+            let theMessage = "Another player is connected<br>";
+            otherPlayerStatusField.html(theMessage);
+            otherPlayerStatusField.removeClass();
+            otherPlayerStatusField.addClass("connected");
+            changeMessageDisplay(theMessage, "message-display-connected")
+        };
+        if (status === "made choice") {
+            otherPlayerStatusField.html("The other player has made a choice<br>");
+            otherPlayerStatusField.removeClass();
+            otherPlayerStatusField.addClass("made-choice");
+        };
+        if (status === "queued") {
+            otherPlayerStatusField.html("<em>waiting in queue for next opening</em><br>");
+            otherPlayerStatusField.removeClass();
+            otherPlayerStatusField.addClass("message-display-queued");
+        };
+    };
+
+    console.log("v1.578");
 });

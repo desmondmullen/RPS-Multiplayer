@@ -126,7 +126,7 @@ hr {
     background-image: url("../images/questionmark.png");
     background-repeat: no-repeat;
     background-size: 10vh;
-    margin-top: 20px;
+    margin-top: 70px;
     margin-left: 40%;
 }
 
@@ -160,7 +160,7 @@ hr {
 
 .lose {
     color: black;
-    background-color: lightcoral;
+    background-color: pink;
 }
 
 .draw {
@@ -168,24 +168,76 @@ hr {
     background-color: white;
 }
 
-#other-player-status {
-    color: black;
-    background-color: white;
+.queued {
+    color: white;
+    font-size: x-large;
+    background-color: red;
 }
 
 .waiting {
-    color: white;
-    background-color: red;
+    color: black;
+    font-weight: bold;
+    background-color: pink;
 }
 
 .connected {
     color: black;
-    background-color: yellow;
+    font-weight: bold;
+    background-color: lightgoldenrodyellow;
 }
 
 .made-choice {
+    color: black;
+    font-weight: bold;
+    background-color: lightgreen;
+}
+
+.message-display-queued {
+    text-align: center;
+    display: static;
+    float: left;
+    height: 35vh;
+    width: 40vw;
+    padding: 10px 20px;
     color: white;
-    background-color: green;
+    font-size: x-large;
+    background-color: red;
+}
+
+.message-display-waiting {
+    text-align: center;
+    display: static;
+    float: left;
+    height: 35vh;
+    width: 40vw;
+    padding: 10px 20px;
+    color: black;
+    font-weight: bold;
+    background-color: pink;
+}
+
+.message-display-connected {
+    text-align: center;
+    display: static;
+    float: left;
+    height: 35vh;
+    width: 40vw;
+    padding: 10px 20px;
+    color: black;
+    font-weight: bold;
+    background-color: lightgoldenrodyellow;
+}
+
+.message-display-made-choice {
+    text-align: center;
+    display: static;
+    float: left;
+    height: 35vh;
+    width: 40vw;
+    padding: 10px 20px;
+    color: black;
+    font-weight: bold;
+    background-color: lightgreen;
 }
 
 #map-left, #map-right {
