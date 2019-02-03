@@ -52,7 +52,7 @@ $(document).ready(function () {
                 var entryMessage = "[disconnected]<br>";
             };
         };
-        database.ref("messages").set({
+        database.ref(messagesPath).set({
             dateTime: todaysDate + " " + currentTime,
             userName: userName,
             message: entryMessage,
@@ -218,6 +218,7 @@ $(document).ready(function () {
                     userName = shortUserID;
                 };
                 // User is signed in.
+                messagesPath = "messages";
                 choicePath = "choice";
                 playersPath = "players";
                 getLocation();
@@ -327,5 +328,5 @@ $(document).ready(function () {
         }, 500);
     };
 
-    console.log("v1.33");
+    console.log("v1.35");
 });
