@@ -268,7 +268,7 @@ $(document).ready(function () {
             'handleCodeInApp': true // This must be true.
         };
         firebase.auth().sendSignInLinkToEmail(theEmailAddress, actionCodeSettings).then(function () {
-            alert('An email was sent to ' + theEmailAddress + '. This instance can be accessed by anyone using the link in that email.');
+            alert('An email was sent to ' + theEmailAddress + ' with a link to connect to this game.');
         }).catch(function (error) {
             handleError(error);
         });
@@ -460,5 +460,5 @@ $(document).ready(function () {
     };
     //#endregion
 
-    console.log("v1.5882");
+    console.log("v1.5887");
 });
