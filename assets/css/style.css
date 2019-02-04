@@ -508,6 +508,7 @@ hr {
 @media screen and (width: 320px) and (height: 568px) and (-webkit-device-pixel-ratio: 2) {
     .message-display, .win, .lose, .draw, .message-display-queued, .message-display-waiting, .message-display-connected, .message-display-made-choice {
         top: 26%;
+        background-color: blue;
     }
 }
 
