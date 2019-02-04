@@ -409,6 +409,8 @@ $(document).ready(function () {
         changeMessageDisplay(theString, winLoseDraw);
         setTimeout(function () {
             $("#other-player-status").html("Another player is connected");
+            $("#other-player-status").removeClass();
+            $("#other-player-status").addClass("connected");
             $("input[name='rock-paper-scissors']").attr('disabled', false);
         }, 500);
     };
