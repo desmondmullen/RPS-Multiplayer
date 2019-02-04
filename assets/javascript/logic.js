@@ -470,7 +470,7 @@ $(document).ready(function () {
         any: function () { return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Opera() || isMobile.Windows()); }
     };
 
-    if (!isMobile.Android()) {
+    if (isMobile.Android()) {
         $(".message-display").css("top", "60%");
         $(".win").css("top", "60%");
         $(".lose").css("top", "60%");
