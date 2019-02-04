@@ -304,7 +304,7 @@ hr {
         margin-left: 0;
     }
     header {
-        margin: 0 1vw 1% 1vw;
+        margin: 0 1% 1% 1%;
     }
     .queued {
         font-size: small;
@@ -328,8 +328,8 @@ hr {
         top: 19%;
         float: none;
         height: 10%;
-        width: 98vw;
-        margin-left: 1vw;
+        width: 98%;
+        margin-left: 1%;
         color: white;
         padding: 5px 10px;
     }
@@ -340,8 +340,8 @@ hr {
         top: 19%;
         float: none;
         height: 10%;
-        width: 98vw;
-        margin-left: 1vw;
+        width: 98%;
+        margin-left: 1%;
         color: white;
         padding: 5px 10px;
     }
@@ -353,8 +353,8 @@ hr {
         top: 19%;
         float: none;
         height: 10%;
-        width: 98vw;
-        margin-left: 1vw;
+        width: 98%;
+        margin-left: 1%;
         padding: 5px 10px;
     }
     .message-display-waiting {
@@ -365,8 +365,8 @@ hr {
         top: 19%;
         float: none;
         height: 10%;
-        width: 98vw;
-        margin-left: 1vw;
+        width: 98%;
+        margin-left: 1%;
         padding: 5px 10px;
     }
     .message-display-connected {
@@ -377,8 +377,8 @@ hr {
         top: 19%;
         float: none;
         height: 10%;
-        width: 98vw;
-        margin-left: 1vw;
+        width: 98%;
+        margin-left: 1%;
         padding: 5px 10px;
     }
     .message-display-made-choice {
@@ -389,18 +389,18 @@ hr {
         top: 19%;
         float: none;
         height: 10%;
-        width: 98vw;
-        margin-left: 1vw;
+        width: 98%;
+        margin-left: 1%;
         padding: 5px 10px;
     }
     #player-left, #player-right {
         height: 25%;
-        width: 46vw;
+        width: 46%;
         padding: 0 5px;
         margin: 0 auto;
     }
     #player-left {
-        margin: 0 1vw 0 2vw;
+        margin: 0 1% 0 2%;
         font-size: small;
         display: inline-block;
     }
@@ -409,7 +409,7 @@ hr {
         margin: 0 auto;
     }
     #player-right {
-        margin: 0 2vw 0 1vw;
+        margin: 0 2% 0 1%;
         display: inline-block;
     }
     .area-title {
@@ -418,20 +418,20 @@ hr {
         font-style: italic;
     }
     #icon-display-left {
-        height: 25%;
+        height: 20%;
         background-image: url("../images/rock.png");
         background-repeat: no-repeat;
-        background-size: 50%;
-        margin-top: 0;
-        margin-left: 17vw;
+        background-size: 30%;
+        margin-top: 5%;
+        margin-left: 40%;
     }
     #icon-display-right {
         height: 25%;
         background-image: url("../images/questionmark.png");
         background-repeat: no-repeat;
-        background-size: 50%;
+        background-size: 40%;
         margin-top: 18%;
-        margin-left: 16vw;
+        margin-left: 34%;
     }
     #other-player-status {
         margin-top: 17%;
@@ -439,10 +439,10 @@ hr {
     }
     .input-form {
         padding: 0 0 0 5px;
-        margin: 1% 1vw 21% 1vw;
+        margin: 1% 1% 21% 1%;
     }
     #map-left, #map-right {
-        margin: 7% 1vw 0 1vw;
+        margin: 7% 1% 0 1%;
     }
     button {
         padding: 0;
