@@ -322,6 +322,7 @@ hr {
         font-weight: normal;
     }
     .message-display {
+        z-index: 99;
         font-size: small;
         display: block;
         position: absolute;
@@ -340,6 +341,7 @@ hr {
         display: table;
     }
     .win, .lose, .draw {
+        z-index: 99;
         font-size: small;
         display: block;
         position: absolute;
@@ -352,6 +354,7 @@ hr {
         padding: 5px 10px;
     }
     .message-display-queued {
+        z-index: 99;
         font-size: small;
         font-weight: normal;
         display: block;
@@ -364,6 +367,7 @@ hr {
         padding: 5px 10px;
     }
     .message-display-waiting {
+        z-index: 99;
         font-size: small;
         font-weight: normal;
         display: block;
@@ -376,6 +380,7 @@ hr {
         padding: 5px 10px;
     }
     .message-display-connected {
+        z-index: 99;
         font-size: small;
         font-weight: normal;
         display: block;
@@ -388,6 +393,7 @@ hr {
         padding: 5px 10px;
     }
     .message-display-made-choice {
+        z-index: 99;
         font-size: small;
         font-weight: normal;
         display: block;
