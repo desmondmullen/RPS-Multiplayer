@@ -341,7 +341,7 @@ hr {
     }
     .win, .lose, .draw {
         font-size: small;
-        display: inline-block;
+        display: block;
         position: absolute;
         top: 60%;
         float: none;
@@ -354,7 +354,7 @@ hr {
     .message-display-queued {
         font-size: small;
         font-weight: normal;
-        display: inline-block;
+        display: block;
         position: absolute;
         top: 60%;
         float: none;
@@ -366,7 +366,7 @@ hr {
     .message-display-waiting {
         font-size: small;
         font-weight: normal;
-        display: inline-block;
+        display: block;
         position: absolute;
         top: 60%;
         float: none;
@@ -378,7 +378,7 @@ hr {
     .message-display-connected {
         font-size: small;
         font-weight: normal;
-        display: inline-block;
+        display: block;
         position: absolute;
         top: 60%;
         float: none;
@@ -390,7 +390,7 @@ hr {
     .message-display-made-choice {
         font-size: small;
         font-weight: normal;
-        display: inline-block;
+        display: block;
         position: absolute;
         top: 60%;
         float: none;
