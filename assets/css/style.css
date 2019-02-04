@@ -323,7 +323,7 @@ hr {
     }
     .message-display {
         font-size: small;
-        display: inline-block;
+        display: block;
         position: absolute;
         top: 48%;
         float: none;
@@ -332,6 +332,7 @@ hr {
         margin-left: 1%;
         color: white;
         padding: 5px 10px;
+        background-color: purple;
     }
     .message-display::after {
         content: "";
