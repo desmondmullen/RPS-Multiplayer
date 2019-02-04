@@ -333,6 +333,11 @@ hr {
         color: white;
         padding: 5px 10px;
     }
+    .message-display::after {
+        content: "";
+        clear: both;
+        display: table;
+    }
     .win, .lose, .draw {
         font-size: small;
         display: inline-block;
