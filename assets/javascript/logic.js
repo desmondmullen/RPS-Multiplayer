@@ -460,5 +460,27 @@ $(document).ready(function () {
     };
     //#endregion
 
+    //#region - mobile formatting fix
+    var isMobile = {
+        Android: function () { return navigator.userAgent.match(/Android/i); },
+        BlackBerry: function () { return navigator.userAgent.match(/BlackBerry/i); },
+        iOS: function () { return navigator.userAgent.match(/iPhone|iPad|iPod/i); },
+        Opera: function () { return navigator.userAgent.match(/Opera Mini/i); },
+        Windows: function () { return navigator.userAgent.match(/IEMobile/i); },
+        any: function () { return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Opera() || isMobile.Windows()); }
+    };
+
+    if (!isMobile.Android()) {
+        $(".message-display").css("top", "60%");
+        $(".win").css("top", "60%");
+        $(".lose").css("top", "60%");
+        $(".draw").css("top", "60%");
+        $(".message-display-queued").css("top", "60%");
+        $(".message-display-waiting").css("top", "60%");
+        $(".message-display-connected").css("top", "60%");
+        $(".message-display-made-choice").css("top", "60%");
+    };
+    //#endregion
+
     console.log("v1.5887");
 });
