@@ -321,25 +321,13 @@ hr {
         font-size: small;
         font-weight: normal;
     }
-    #wins-and-losses {
-        font-size: small;
-        display: block;
-        position: absolute;
-        top: 23vh;
-        float: none;
-        height: 10vh;
-        width: 98vw;
-        margin-left: 1vw;
-        color: white;
-        padding: 5px 10px;
-    }
     .message-display {
         font-size: small;
         display: block;
         position: absolute;
-        top: 20vh;
+        top: 20%;
         float: none;
-        height: 10vh;
+        height: 10%;
         width: 98vw;
         margin-left: 1vw;
         color: white;
@@ -349,9 +337,9 @@ hr {
         font-size: small;
         display: block;
         position: absolute;
-        top: 20vh;
+        top: 20%;
         float: none;
-        height: 10vh;
+        height: 10%;
         width: 98vw;
         margin-left: 1vw;
         color: white;
@@ -362,9 +350,9 @@ hr {
         font-weight: normal;
         display: block;
         position: absolute;
-        top: 20vh;
+        top: 20%;
         float: none;
-        height: 10vh;
+        height: 10%;
         width: 98vw;
         margin-left: 1vw;
         padding: 5px 10px;
@@ -374,9 +362,9 @@ hr {
         font-weight: normal;
         display: block;
         position: absolute;
-        top: 20vh;
+        top: 20%;
         float: none;
-        height: 10vh;
+        height: 10%;
         width: 98vw;
         margin-left: 1vw;
         padding: 5px 10px;
@@ -386,9 +374,9 @@ hr {
         font-weight: normal;
         display: block;
         position: absolute;
-        top: 20vh;
+        top: 20%;
         float: none;
-        height: 10vh;
+        height: 10%;
         width: 98vw;
         margin-left: 1vw;
         padding: 5px 10px;
@@ -398,9 +386,9 @@ hr {
         font-weight: normal;
         display: block;
         position: absolute;
-        top: 20vh;
+        top: 20%;
         float: none;
-        height: 10vh;
+        height: 10%;
         width: 98vw;
         margin-left: 1vw;
         padding: 5px 10px;
@@ -438,12 +426,16 @@ hr {
         margin-left: 17vw;
     }
     #icon-display-right {
-        height: 10vh;
+        height: 10%;
         background-image: url("../images/questionmark.png");
         background-repeat: no-repeat;
         background-size: 5vh;
         margin-top: 2vh;
         margin-left: 16vw;
+    }
+    #other-player-status {
+        margin-top: 50%;
+        /* position: static; */
     }
     .input-form {
         padding: 0 0 0 5px;
