@@ -252,7 +252,7 @@ hr {
     margin: 2vh 1vw 0 1vw;
     float: left;
     width: 48vw;
-    height: 35%;
+    height: 35vh;
 }
 
 #map-right {
@@ -303,11 +303,134 @@ hr {
         width: 100%;
         margin-left: 0;
     }
+    header {
+        margin: 0 1vw 1vh 1vw;
+    }
+    .queued {
+        font-size: small;
+    }
+    .waiting {
+        font-size: small;
+        font-weight: normal;
+    }
+    .connected {
+        font-size: small;
+        font-weight: normal;
+    }
+    .made-choice {
+        font-size: small;
+        font-weight: normal;
+    }
+    .message-display {
+        font-size: small;
+        display: block;
+        position: absolute;
+        top: 20vh;
+        float: none;
+        height: 10vh;
+        width: 98vw;
+        margin-left: 1vw;
+        color: white;
+        padding: 5px 10px;
+    }
+    .message-display-queued {
+        font-size: small;
+        font-weight: normal;
+        display: block;
+        position: absolute;
+        top: 20vh;
+        float: none;
+        height: 10vh;
+        width: 98vw;
+        margin-left: 1vw;
+        padding: 5px 10px;
+    }
+    .message-display-waiting {
+        font-size: small;
+        font-weight: normal;
+        display: block;
+        position: absolute;
+        top: 20vh;
+        float: none;
+        height: 10vh;
+        width: 98vw;
+        margin-left: 1vw;
+        padding: 5px 10px;
+    }
+    .message-display-connected {
+        font-size: small;
+        font-weight: normal;
+        display: block;
+        position: absolute;
+        top: 20vh;
+        float: none;
+        height: 10vh;
+        width: 98vw;
+        margin-left: 1vw;
+        padding: 5px 10px;
+    }
+    .message-display-made-choice {
+        font-size: small;
+        font-weight: normal;
+        display: block;
+        position: absolute;
+        top: 20vh;
+        float: none;
+        height: 10vh;
+        width: 98vw;
+        margin-left: 1vw;
+        padding: 5px 10px;
+    }
+    #player-left, #player-right {
+        height: 25vh;
+        width: 46vw;
+        padding: 0 5px;
+        margin: 0 auto;
+    }
+    #player-left {
+        margin: 0 1vw 0 2vw;
+        font-size: small;
+        display: inline-block;
+    }
+    #commit {
+        display: block;
+        margin: 0 auto;
+    }
+    #player-right {
+        margin: 0 2vw 0 1vw;
+        display: inline-block;
+    }
+    .area-title {
+        font-size: medium;
+        font-weight: bold;
+        font-style: italic;
+    }
+    #icon-display-left {
+        height: 5vh;
+        background-image: url("../images/rock.png");
+        background-repeat: no-repeat;
+        background-size: 5vh;
+        margin-top: 1vh;
+        margin-left: 15vw;
+    }
+    #icon-display-right {
+        height: 10vh;
+        background-image: url("../images/questionmark.png");
+        background-repeat: no-repeat;
+        background-size: 5vh;
+        margin-top: 2vh;
+        margin-left: 15vw;
+    }
     .input-form {
-        padding: 5px 0 0 0;
+        padding: 0 0 0 5px;
+        margin: 1vh 1vw 12vh 1vw;
+    }
+    #map-left, #map-right {
+        margin: 4vh 1vw 0 1vw;
     }
     button {
         padding: 0;
+        margin: 0;
     }
     label {
         margin: 5px 0px 0px 0px;
@@ -321,6 +444,7 @@ hr {
         margin: 0;
     }
     #signout-button button {
+        display: none;
         padding: 0;
         margin: 0 10px;
     }
@@ -335,6 +459,15 @@ hr {
         padding: 0;
         right: 0;
         font-size: x-small;
+    }
+    .radio-button {
+        display: block;
+        margin: 0 auto;
+        /* margin: 5px 0 5px 10px; */
+    }
+    .left-most {
+        margin: 0 auto;
+        /* margin: 5px 0 5px 0; */
     }
     .bottom-bar {
         width: 100%;
