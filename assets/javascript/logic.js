@@ -471,14 +471,14 @@ $(document).ready(function () {
     };
 
     if (isMobile.Android()) {
-        $(".message-display").css("top", "60%");//from 72% on iOS
-        $(".win").css("top", "60%");
-        $(".lose").css("top", "60%");
-        $(".draw").css("top", "60%");
-        $(".message-display-queued").css("top", "60%");
-        $(".message-display-waiting").css("top", "60%");
-        $(".message-display-connected").css("top", "60%");
-        $(".message-display-made-choice").css("top", "60%");
+        $(".message-display").css("top", "58.5%");//from 72% on iOS
+        $(".win").css("top", "58.5%");
+        $(".lose").css("top", "58.5%");
+        $(".draw").css("top", "58.5%");
+        $(".message-display-queued").css("top", "58.5%");
+        $(".message-display-waiting").css("top", "58.5%");
+        $(".message-display-connected").css("top", "58.5%");
+        $(".message-display-made-choice").css("top", "58.5%");
         $("#map-left").css("margin", "34% 1% 0 1%");//from 40% on iOS
         $("#map-right").css("margin", "34% 1% 0 1%");
     };
