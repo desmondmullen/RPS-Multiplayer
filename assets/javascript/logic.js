@@ -11,12 +11,14 @@ $(document).ready(function () {
     firebase.initializeApp(config);
 
     var database = firebase.database();
-    var userID;
     var userName;
     var messagesPath;
     var choicePath;
     var theChoice;
     var theString;
+    var theWins = 0;
+    var theLosses = 0;
+    var theDraws = 0;
     var playerNumberOneOrTwo = "zero";
     var otherPlayerMapShown = false;
     var theNumberOnline;
@@ -69,7 +71,7 @@ $(document).ready(function () {
     function initializeDatabaseReferences() {
         firebase.auth().onAuthStateChanged(function (user) {
             if (user) {
-                userID = user.uid;
+                // userID = user.uid;
                 let shortUserID = Math.floor(Math.random() * 1000 + 1000);
                 userName = prompt("Please enter a name to use for sending messages. If you don't choose one, we'll call you by this random number:", shortUserID);
                 if (userName == null || userName.trim() == "") {
@@ -165,7 +167,6 @@ $(document).ready(function () {
         console.log("empty input fields");
         $("#input-message").val("");
         $("#message-display").text("");
-        userID = "";
         userName = "";
         messagesPath = "";
         choicePath = "";
@@ -173,6 +174,9 @@ $(document).ready(function () {
         userLongitude;
         userLatLong;
         playerNumberOneOrTwo = "zero";
+        theWins = 0;
+        theLosses = 0;
+        theDraws = 0;
     };
     //#endregion
 
@@ -391,15 +395,19 @@ $(document).ready(function () {
         if (playerNumberOneOrTwo === theWinner) {
             theString = (theString + "\nYou won!");
             winLoseDraw = "win";
+            theWins++;
         } else {
             if (theWinner === "draw") {
-                theString = ("you both picked the same thing, it was a draw");
+                theString = ("You both picked the same thing that round was a draw");
                 winLoseDraw = "draw";
+                theDraws++;
             } else {
                 theString = (theString + "\nYou lost.");
                 winLoseDraw = "lose";
+                theLosses++;
             };
         };
+        $("#message-display").prepend("<strong>You have won " + theWins + " and lost " + theLosses + " rounds. " + theDraws + " rounds were draws.</strong><br>");
         changeMessageDisplay(theString, winLoseDraw);
         setTimeout(function () {
             $("#other-player-status").html("Another player is connected");
@@ -448,5 +456,5 @@ $(document).ready(function () {
     };
     //#endregion
 
-    console.log("v1.587");
+    console.log("v1.588");
 });

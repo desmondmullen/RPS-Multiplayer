@@ -149,7 +149,7 @@ hr {
 }
 
 .win, .lose, .draw {
-    font-size: xx-large;
+    font-size: large;
     text-align: center;
     display: static;
     float: left;
@@ -320,6 +320,18 @@ hr {
     .made-choice {
         font-size: small;
         font-weight: normal;
+    }
+    #wins-and-losses {
+        font-size: small;
+        display: block;
+        position: absolute;
+        top: 23vh;
+        float: none;
+        height: 10vh;
+        width: 98vw;
+        margin-left: 1vw;
+        color: white;
+        padding: 5px 10px;
     }
     .message-display {
         font-size: small;
