@@ -208,7 +208,7 @@ hr {
     width: 40vw;
     padding: 10px 20px;
     color: white;
-    font-size: x-large;
+    /* font-size: medium; */
     background-color: red;
 }
 

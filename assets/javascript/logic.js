@@ -80,9 +80,7 @@ $(document).ready(function () {
                 messagesPath = "messages";
                 choicePath = "choice";
                 getLocation();
-                setTimeout(function () {
-                    doAddEntry("connected");
-                }, 2000);
+                doAddEntry("connected");
             };
         });
     }
@@ -255,7 +253,7 @@ $(document).ready(function () {
 
     function signOut() {
         playerNumberOneOrTwo === "zero";
-        doAddEntry("disconnected");
+        // doAddEntry("disconnected");
         firebase.auth().signOut();
         window.localStorage.removeItem("playerNumber");
         emptyInputFields();
@@ -449,12 +447,14 @@ $(document).ready(function () {
             otherPlayerStatusField.addClass("made-choice");
         };
         if (status === "queued") {
-            otherPlayerStatusField.html("<em>waiting in queue for next opening</em><br>");
+            let theMessage = "<em>waiting in queue for next opening</em><br>"
+            otherPlayerStatusField.html(theMessage);
             otherPlayerStatusField.removeClass();
-            otherPlayerStatusField.addClass("message-display-queued");
+            otherPlayerStatusField.addClass("queued");
+            changeMessageDisplay(theMessage, "message-display-queued")
         };
     };
     //#endregion
 
-    console.log("v1.588");
+    console.log("v1.5881");
 });
