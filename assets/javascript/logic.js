@@ -429,9 +429,11 @@ $(document).ready(function () {
         otherPlayerStatusField = $("#other-player-status");
         if (status === "waiting") {
             let theMessage = "Waiting for another player to connect<br>";
-            otherPlayerStatusField.html(theMessage);
-            otherPlayerStatusField.removeClass();
-            otherPlayerStatusField.addClass("waiting");
+            setTimeout(function () {
+                otherPlayerStatusField.html(theMessage);
+                otherPlayerStatusField.removeClass();
+                otherPlayerStatusField.addClass("waiting");
+            }, 200);
             changeMessageDisplay(theMessage, "message-display-waiting")
         };
         if (status === "connected") {
@@ -456,5 +458,5 @@ $(document).ready(function () {
     };
     //#endregion
 
-    console.log("v1.5881");
+    console.log("v1.5882");
 });

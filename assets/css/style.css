@@ -191,7 +191,7 @@ hr {
 .connected {
     color: black;
     font-weight: bold;
-    background-color: lightgoldenrodyellow;
+    background-color: yellow;
 }
 
 .made-choice {
@@ -233,7 +233,7 @@ hr {
     padding: 10px 20px;
     color: black;
     font-weight: bold;
-    background-color: lightgoldenrodyellow;
+    background-color: yellow;
 }
 
 .message-display-made-choice {
