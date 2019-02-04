@@ -209,7 +209,7 @@ hr {
     padding: 10px 20px;
     color: white;
     /* font-size: medium; */
-    background-color: blue;
+    background-color: red;
 }
 
 .message-display-waiting {
@@ -323,7 +323,7 @@ hr {
     }
     .message-display {
         font-size: small;
-        display: block;
+        display: inline-block;
         position: absolute;
         top: 19%;
         float: none;
@@ -335,7 +335,7 @@ hr {
     }
     .win, .lose, .draw {
         font-size: small;
-        display: block;
+        display: inline-block;
         position: absolute;
         top: 19%;
         float: none;
@@ -348,7 +348,7 @@ hr {
     .message-display-queued {
         font-size: small;
         font-weight: normal;
-        display: block;
+        display: inline-block;
         position: absolute;
         top: 19%;
         float: none;
@@ -360,7 +360,7 @@ hr {
     .message-display-waiting {
         font-size: small;
         font-weight: normal;
-        display: block;
+        display: inline-block;
         position: absolute;
         top: 19%;
         float: none;
@@ -372,7 +372,7 @@ hr {
     .message-display-connected {
         font-size: small;
         font-weight: normal;
-        display: block;
+        display: inline-block;
         position: absolute;
         top: 19%;
         float: none;
@@ -384,7 +384,7 @@ hr {
     .message-display-made-choice {
         font-size: small;
         font-weight: normal;
-        display: block;
+        display: inline-block;
         position: absolute;
         top: 19%;
         float: none;
