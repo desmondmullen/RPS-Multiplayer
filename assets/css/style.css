@@ -332,7 +332,7 @@ hr {
         margin-left: 1%;
         color: white;
         padding: 5px 10px;
-        background-color: purple;
+        /* background-color: purple; */
     }
     .message-display::after {
         content: "";
