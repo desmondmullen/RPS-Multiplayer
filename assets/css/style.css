@@ -325,7 +325,7 @@ hr {
         font-size: small;
         display: inline-block;
         position: absolute;
-        top: 19%;
+        top: 48%;
         float: none;
         height: 10%;
         width: 98%;
@@ -342,7 +342,7 @@ hr {
         font-size: small;
         display: inline-block;
         position: absolute;
-        top: 19%;
+        top: 48%;
         float: none;
         height: 10%;
         width: 98%;
@@ -355,7 +355,7 @@ hr {
         font-weight: normal;
         display: inline-block;
         position: absolute;
-        top: 19%;
+        top: 48%;
         float: none;
         height: 10%;
         width: 98%;
@@ -367,7 +367,7 @@ hr {
         font-weight: normal;
         display: inline-block;
         position: absolute;
-        top: 19%;
+        top: 48%;
         float: none;
         height: 10%;
         width: 98%;
@@ -379,7 +379,7 @@ hr {
         font-weight: normal;
         display: inline-block;
         position: absolute;
-        top: 19%;
+        top: 48%;
         float: none;
         height: 10%;
         width: 98%;
@@ -391,7 +391,7 @@ hr {
         font-weight: normal;
         display: inline-block;
         position: absolute;
-        top: 19%;
+        top: 48%;
         float: none;
         height: 10%;
         width: 98%;
@@ -444,10 +444,10 @@ hr {
     }
     .input-form {
         padding: 0 0 0 5px;
-        margin: 1% 1% 21% 1%;
+        margin: 1% 1% 1% 1%;
     }
     #map-left, #map-right {
-        margin: 7% 1% 0 1%;
+        margin: 27% 1% 0 1%;
     }
     button {
         padding: 0;
