@@ -291,7 +291,7 @@ hr {
     width: device-width;
 }
 
-@media only screen and (max-width: 900px) {
+@media only screen and (max-width: 400px) {
     body {
         margin: 5px 0px 4.5ch 0px;
     }
